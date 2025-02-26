@@ -34,7 +34,9 @@ export const authOptions: AuthOptions = {
           user.password
         );
 
-        if (!isCorrectPassword) throw new Error('Invalid credentials');
+        if (!isCorrectPassword) {
+          throw new Error('Invalid credentials');
+        }
 
         return user;
       },
