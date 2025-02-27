@@ -5,7 +5,7 @@ import Link from 'next/link';
 import React from 'react';
 import { IconType } from 'react-icons/lib';
 
-interface DesktopIconProps {
+interface DesktopItemProps {
   label: string;
   icon: IconType;
   href: string;
@@ -13,7 +13,7 @@ interface DesktopIconProps {
   active?: boolean;
 }
 
-const DesktopItem: React.FC<DesktopIconProps> = ({
+const DesktopItem: React.FC<DesktopItemProps> = ({
   label,
   icon: Icon,
   href,
