@@ -21,7 +21,7 @@ const DesktopItem: React.FC<DesktopItemProps> = ({
   active,
 }) => {
   const handleClick = () => {
-    if (onclick) {
+    if (onClick) {
       return onClick();
     }
   };

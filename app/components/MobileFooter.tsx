@@ -21,7 +21,7 @@ const MobileFooter = () => {
           href={route.href}
           active={route.active}
           icon={route.icon}
-          onClick={route.onclick}
+          onClick={route.onClick}
         />
       ))}
     </div>
