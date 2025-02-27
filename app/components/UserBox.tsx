@@ -2,8 +2,6 @@
 
 import { User } from '@prisma/client';
 import React, { useCallback, useState } from 'react';
-import DefaultImageUser from '../../public/download.png';
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import Avatar from './Avatar';
@@ -32,13 +30,10 @@ const UserBox = ({ user }: UserBoxProps) => {
   return (
     <div
       key={user.id}
-      className="flex items-center gap-x-3 cursor-pointer"
+      className="flex items-center gap-x-3 cursor-pointer p-2 hover:bg-gray-100 hover:rounded-xl transition"
       onClick={handleSubmit}
     >
-      <div className="relative">
-        <Avatar />
-        <span className="absolute block rounded-full bg-green-500 ring-2 ring-white top-0 right-0 h-2 w-2 md:w-3 md:h-3" />
-      </div>
+      <Avatar user={user} />
       <p className="text-xl font-medium text-neutral-700">{user.name}</p>
     </div>
   );
