@@ -4,6 +4,7 @@ import Body from './components/Body';
 import MessageForm from './components/MessageForm';
 import { getConversationById } from '@/app/actions/getConversationById';
 import EmptyState from '@/app/components/EmptyState';
+import { getMessages } from '@/app/actions/getMessages';
 
 interface Params {
   conversationId: string;
@@ -15,6 +16,7 @@ const ConversationPage = async ({
   params: Params;
 }) => {
   const conversation = await getConversationById(conversationId);
+  const message = await getMessages(conversationId);
 
   if (!conversation) {
     return (
@@ -30,7 +32,7 @@ const ConversationPage = async ({
     <div className="h-full lg:pl-80">
       <div className=" h-full flex flex-col ">
         <Header conversation={conversation} />
-        <Body />
+        <Body initialMessage={message} />
         <MessageForm />
       </div>
     </div>

@@ -22,7 +22,7 @@ const UserBox = ({ user }: UserBoxProps) => {
         userId: user.id,
       })
       .then((data) => {
-        router.push(`/conversation/${data.data.id}`);
+        router.push(`/conversations/${data.data.id}`);
       })
       .finally(() => setIsLoading(false));
   }, [router, user.id]);
