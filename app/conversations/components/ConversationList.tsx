@@ -1,13 +1,15 @@
 'use client';
 
-import { Conversation } from '@prisma/client';
+import { FullConversationType } from '@/app/types';
 import React from 'react';
 
 interface ConversationListProps {
-  initialItems: Conversation[];
+  initialItems: FullConversationType[];
 }
 
-const ConversationList = ({ initialItems }: ConversationListProps) => {
+const ConversationList: React.FC<ConversationListProps> = ({
+  initialItems,
+}) => {
   return <div>ConversationList</div>;
 };
 
