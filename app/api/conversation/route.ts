@@ -21,7 +21,7 @@ export async function POST(request: Request) {
       data: {
         name,
         isGroup,
-        user: {
+        users: {
           connect: [
             ...members.map((member: { value: string }) => ({
               id: member.value,
@@ -33,7 +33,7 @@ export async function POST(request: Request) {
         },
       },
       include: {
-        user: true,
+        users: true,
       },
     });
     return NextResponse.json(newConversation);
@@ -41,22 +41,20 @@ export async function POST(request: Request) {
 
   const existingConversation = await prisma.conversation.findMany({
     where: {
-      OR: [
-        {
-          userId: {
-            equals: [currentUser.id, userId],
-          },
+      users: {
+        some: {
+          id: currentUser.id,
         },
-        {
-          userId: {
-            equals: [userId, currentUser.id],
-          },
-        },
-      ],
+      },
+    },
+    include: {
+      users: true,
     },
   });
 
-  const singleConversation = existingConversation[0];
+  const singleConversation = existingConversation.find((conversation) =>
+    conversation.users.some((user) => user.id === userId)
+  );
 
   if (singleConversation) {
     return NextResponse.json(singleConversation);
@@ -64,7 +62,7 @@ export async function POST(request: Request) {
 
   const newConversation = await prisma.conversation.create({
     data: {
-      user: {
+      users: {
         connect: [
           {
             id: currentUser.id,
@@ -76,7 +74,7 @@ export async function POST(request: Request) {
       },
     },
     include: {
-      user: true,
+      users: true,
     },
   });
 
