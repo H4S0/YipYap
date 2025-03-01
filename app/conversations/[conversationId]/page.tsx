@@ -18,6 +18,8 @@ const ConversationPage = async ({
   const conversation = await getConversationById(conversationId);
   const message = await getMessages(conversationId);
 
+  console.log(message);
+
   if (!conversation) {
     return (
       <div className="lg:pl-80 h-full">
