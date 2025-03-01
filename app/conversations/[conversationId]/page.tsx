@@ -30,7 +30,7 @@ const ConversationPage = async ({
 
   return (
     <div className="h-full lg:pl-80">
-      <div className=" h-full flex flex-col ">
+      <div className="h-full flex flex-col justify-between">
         <Header conversation={conversation} />
         <Body initialMessage={message} />
         <MessageForm />
