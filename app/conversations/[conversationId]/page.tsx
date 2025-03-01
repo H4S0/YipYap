@@ -4,7 +4,7 @@ import Body from './components/Body';
 import MessageForm from './components/MessageForm';
 import { getConversationById } from '@/app/actions/getConversationById';
 import EmptyState from '@/app/components/EmptyState';
-import { getMessages } from '@/app/actions/getMessages';
+import getMessages from '@/app/actions/getMessages';
 
 interface Params {
   conversationId: string;
