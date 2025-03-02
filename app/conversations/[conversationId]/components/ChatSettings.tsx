@@ -2,10 +2,12 @@
 
 import useOtherUser from '@/app/hooks/useOtherUser';
 import { Conversation, User } from '@prisma/client';
-import React, { useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { IoIosCloseCircle } from 'react-icons/io';
-import { format } from 'date-fns';
 import Avatar from '@/app/components/Avatar';
+import axios from 'axios';
+import useConversation from '@/app/hooks/useConversation';
+import { useRouter } from 'next/navigation';
 
 interface ProfileSettingsProps {
   onClose: () => void;
@@ -17,6 +19,8 @@ interface ProfileSettingsProps {
 
 const ChatSettings = ({ data, isOpen, onClose }: ProfileSettingsProps) => {
   const otherUser = useOtherUser(data);
+  const { conversationId } = useConversation();
+  const router = useRouter();
 
   const title = useMemo(() => {
     return data.name || otherUser?.name;
@@ -39,6 +43,13 @@ const ChatSettings = ({ data, isOpen, onClose }: ProfileSettingsProps) => {
     };
   }, [isOpen]);
 
+  const onSubmit = useCallback(() => {
+    axios.delete(`/api/conversations/${conversationId}`).then(() => {
+      router.push('/conversations');
+      router.refresh();
+    });
+  }, [conversationId, router]);
+
   return (
     <div
       className={`fixed top-0 right-0 h-full bg-slate-200 shadow-lg transition-transform duration-300 ease-in-out ${
@@ -56,7 +67,10 @@ const ChatSettings = ({ data, isOpen, onClose }: ProfileSettingsProps) => {
         </div>
 
         <div className="mt-5">
-          <button className="w-full bg-red-500 text-white py-2 rounded-lg text-center font-medium hover:bg-red-600 transition">
+          <button
+            onClick={onSubmit}
+            className="w-full bg-red-500 text-white py-2 rounded-lg text-center font-medium hover:bg-red-600 transition"
+          >
             Delete Conversation
           </button>
           <div className="flex items-center gap-x-3 bg-white hover:bg-slate-100 mt-2 p-2 w-full rounded-lg transition">
